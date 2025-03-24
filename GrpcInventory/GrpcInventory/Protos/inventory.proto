@@ -1,0 +1,20 @@
+﻿syntax = "proto3";
+
+package inventory;
+
+option csharp_namespace = "GrpcInventory.InventoryProtoService";
+
+service InventoryGrpc {
+  rpc AddMovement(MovementMessage) returns (MovementMessage);
+}
+
+message MovementMessage {
+  int32 id = 1;
+  string date = 2;
+  string type = 3;
+  int32 item_id = 4;
+  int32 quantity = 5;
+  double unit_price = 6;
+  double total_price = 7;
+  string detail = 8;
+}

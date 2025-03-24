@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package product;
+
+option csharp_namespace = "GrpcInventory.ProductProtoService";
+
+
+service ProductGrpc {
+  rpc UpdateStock (UpdateStockProto) returns (UpdateStockResponse);
+}
+message UpdateStockProto {
+  int32 id = 1;
+  int32 quantity = 2;
+  string movementType = 3;
+}
+
+message UpdateStockResponse {
+  bool success = 1;
+  string message = 2;
+}
+
