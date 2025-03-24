@@ -7,8 +7,6 @@ namespace GrpcInventory.Services
 {
     public class ProductServiceClient
     {
-        private readonly IConfiguration _configuration;
-
         private readonly ProductGrpc.ProductGrpcClient _client;
 
         public ProductServiceClient(IConfiguration configuration)
@@ -19,7 +17,7 @@ namespace GrpcInventory.Services
                 MaxSendMessageSize = int.MaxValue
             };
 
-            var channel = GrpcChannel.ForAddress(_configuration["ProductServiceUrl"], channelOptions);
+            var channel = GrpcChannel.ForAddress(configuration["ProductServiceUrl"], channelOptions);
             _client = new ProductGrpc.ProductGrpcClient(channel);
         }
 

@@ -17,6 +17,12 @@ namespace GrpcProduct.Mappers
             CreateMap<CategoryProto, Category>()
                 .ReverseMap();
 
+            CreateMap<List<Item>, ItemsProto>()
+            .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src));
+
+            CreateMap<IEnumerable<Item>, ItemsProto>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src));
+
         }
     }
 }

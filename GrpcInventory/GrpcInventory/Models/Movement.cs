@@ -1,6 +1,4 @@
-﻿using GrpcInventory.InventoryProtoService;
-using System;
-using System.Collections.Generic;
+﻿using GrpcInventory.Enums;
 
 namespace GrpcInventory.Models;
 
@@ -10,7 +8,7 @@ public partial class Movement
 
     public string Date { get; set; } = null!;
 
-    public MovementType Type { get; set; }
+    public MovementTypeEnum Type { get; set; }
 
     public int ItemId { get; set; }
 

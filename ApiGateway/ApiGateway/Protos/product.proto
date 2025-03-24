@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package product;
 
-option csharp_namespace = "GrpcProduct.ProductProtoService";
+option csharp_namespace = "ApiGateway.ProductProtoService";
 
 service ProductGrpc {
   rpc CreateProduct (ItemProto) returns (ItemProto);

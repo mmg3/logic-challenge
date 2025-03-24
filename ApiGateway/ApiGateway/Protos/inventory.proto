@@ -2,7 +2,7 @@
 
 package inventory;
 
-option csharp_namespace = "GrpcInventory.InventoryProtoService";
+option csharp_namespace = "ApiGateway.InventoryProtoService";
 
 service InventoryGrpc {
   rpc AddMovement(MovementMessage) returns (MovementMessage);
@@ -24,10 +24,11 @@ message MovementMessage {
   double total_price = 7;
   string detail = 8;
 }
-message MovementsProto {
-	repeated MovementMessage movements = 1;
-}
 
 message ProductIdMessage {
   int32 product_id = 1;
+}
+
+message MovementsProto {
+	repeated MovementMessage movements = 1;
 }

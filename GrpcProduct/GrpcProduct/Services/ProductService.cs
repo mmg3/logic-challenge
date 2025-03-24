@@ -70,11 +70,11 @@ namespace GrpcProduct.Services
             return _mapper.Map<ItemProto>(deletedItem);
         }
 
-        public override async Task<ItemProto> GetAllProducts(EmptyRequest request, ServerCallContext context)
+        public override async Task<ItemsProto> GetAllProducts(EmptyRequest request, ServerCallContext context)
         {
             var items = await _productRepository.GetAll();
 
-            return _mapper.Map<ItemProto>(items);
+            return _mapper.Map<ItemsProto>(items);
         }
     }
 }

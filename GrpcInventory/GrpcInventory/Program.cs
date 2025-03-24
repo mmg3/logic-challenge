@@ -16,8 +16,8 @@ builder.Services.AddDbContext<InventoryContext>(options =>
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-builder.Services.AddScoped<IProductInventoryRepository, ProductInventoryRepository>();
 builder.Services.AddScoped<IMovementsRepository, MovementsRepository>();
+builder.Services.AddScoped<ProductServiceClient>();
 builder.Services.AddScoped<InventoryService>();
 
 var app = builder.Build();

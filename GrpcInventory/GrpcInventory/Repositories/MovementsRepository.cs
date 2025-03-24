@@ -1,5 +1,6 @@
 ﻿using GrpcInventory.Contexts;
 using GrpcInventory.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GrpcInventory.Repositories
 {
@@ -12,6 +13,16 @@ namespace GrpcInventory.Repositories
             _context.Movements.Add(movement);
             await _context.SaveChangesAsync();
             return movement;
+        }
+
+        public async Task<List<Movement>> GetAllMovements()
+        {
+            return await _context.Movements.ToListAsync();
+        }
+
+        public async Task<List<Movement>> GetMovementsByProductId(int productId)
+        {
+            return await _context.Movements.Where(m => m.ItemId == productId).ToListAsync();
         }
     }
 }

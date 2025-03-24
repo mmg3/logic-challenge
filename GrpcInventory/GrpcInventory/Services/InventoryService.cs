@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Google.Protobuf;
 using Grpc.Core;
 using GrpcInventory.Contexts;
 using GrpcInventory.InventoryProtoService;
@@ -47,6 +48,36 @@ namespace GrpcInventory.Services
                     throw;
                 }
             }
+        }
+
+        public override async Task<MovementsProto> GetAllMovements(Empty request, ServerCallContext context)
+        {
+            MovementsProto movementsMessage = new();
+            try
+            {
+                List<Movement> movements = await _movementsRepository.GetAllMovements();
+                return _mapper.Map<MovementsProto>(movements);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener movimientos: {ex}");
+                throw;
+            }
+        }
+
+        public override async Task<MovementsProto> GetMovementByProductId(ProductIdMessage request, ServerCallContext context)
+        {
+            List<Movement> movements = [];
+            try
+            {
+                movements = await _movementsRepository.GetMovementsByProductId(request.ProductId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al obtener movimiento: {ex}");
+                throw;
+            }
+            return _mapper.Map<MovementsProto>(movements);
         }
     }
 }
