@@ -78,7 +78,7 @@ export default function Movements() {
   };
   const handleProductoChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const producto = productolist && productolist.find((prod) => prod.id === Number(e.target.value));
-
+    setProductoSeleccionado(producto || null);
     const dataMovimiento: Movimiento[] = await getMovementByProductId(producto?.id);
     setMovimientos(dataMovimiento.movements);
   };
