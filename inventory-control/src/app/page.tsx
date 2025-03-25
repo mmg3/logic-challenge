@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import Products from './pages/products/pages';
-import Reports from './pages/reports/pages';
-import Movements from './pages/movements/pages';
-
+import Products from './pages/products/page';
+import Reports from './pages/reports/page';
+import Movements from './pages/movements/page';
 export default function Home() {
   const [activePage, setActivePage] = useState("Productos");
 
@@ -18,7 +17,7 @@ export default function Home() {
       case "📊 Reportes":
         return <Reports />;
       default:
-        return <h2>Bienvenido</h2>;
+        return <Products />;
     }
   };
 

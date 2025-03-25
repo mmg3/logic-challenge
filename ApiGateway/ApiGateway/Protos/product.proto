@@ -10,10 +10,24 @@ service ProductGrpc {
   rpc UpdateProduct (ItemProto) returns (ItemProto);
   rpc UpdateStock (UpdateStockProto) returns (ItemProto);
   rpc DeleteProduct (SingleProduct) returns (ItemProto);
+  rpc GetAllPaginatedProducts (ProductPaginatedRequest) returns (ItemsPaginatedProto);
   rpc GetAllProducts (EmptyRequest) returns (ItemsProto);
+  rpc GetAllCategories (EmptyRequest) returns (CategoriesProto);
 }
 
 message EmptyRequest {
+}
+
+message ItemsPaginatedProto {
+	ItemsProto items = 1;
+	int32 total_pages = 2;
+	int32 current_page = 3;
+	int32 total_items = 4;
+}
+
+message ProductPaginatedRequest {
+	int32 offset = 1;
+	int32 limit = 2;
 }
 
 message ItemsProto {
@@ -30,6 +44,7 @@ message ItemProto {
   int32 stock = 7;
   bool is_active = 8;
   CategoryProto category = 9;
+  int32 oldStock = 10;
 }
 
 message UpdateStockProto {
@@ -45,4 +60,8 @@ message CategoryProto {
 
 message SingleProduct {
   int32 id = 1;
+}
+
+message CategoriesProto {
+	repeated CategoryProto categories = 1;
 }

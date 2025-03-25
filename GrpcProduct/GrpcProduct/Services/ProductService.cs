@@ -4,6 +4,7 @@ using GrpcProduct.Enums;
 using GrpcProduct.Models;
 using GrpcProduct.ProductProtoService;
 using GrpcProduct.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace GrpcProduct.Services
 {
@@ -28,7 +29,8 @@ namespace GrpcProduct.Services
 
         public override async Task<ItemProto> UpdateProduct(ItemProto request, ServerCallContext context)
         {
-            var updatedItem = await _productRepository.Update(_mapper.Map<Item>(request));
+            var itemToUpdate = _mapper.Map<Item>(request);
+            var updatedItem = await _productRepository.Update(itemToUpdate);
 
             return _mapper.Map<ItemProto>(updatedItem);
         }
@@ -58,8 +60,7 @@ namespace GrpcProduct.Services
             {
                 throw new ArgumentException($"Tipo de movimiento no válido: {request.MovementType}");
             }
-
-            var updatedItem = await _productRepository.Update(_mapper.Map<Item>(request));
+            var updatedItem = await _productRepository.Update(item);
 
             return _mapper.Map<ItemProto>(updatedItem);
         }
@@ -70,11 +71,33 @@ namespace GrpcProduct.Services
             return _mapper.Map<ItemProto>(deletedItem);
         }
 
+        public override async Task<ItemsPaginatedProto> GetAllPaginatedProducts(ProductPaginatedRequest request, ServerCallContext context)
+        {
+            
+            var paginated = await _productRepository.GetAll(request.Offset, request.Limit);
+
+            var itemsProto = _mapper.Map<ItemsProto>(paginated.Items);
+
+            return new ItemsPaginatedProto
+            {
+                Items = itemsProto,
+                TotalItems = paginated.TotalItems,
+                TotalPages = paginated.TotalPages,
+                CurrentPage = request.Offset
+            };
+        }
+
         public override async Task<ItemsProto> GetAllProducts(EmptyRequest request, ServerCallContext context)
         {
             var items = await _productRepository.GetAll();
-
             return _mapper.Map<ItemsProto>(items);
+        }
+
+        public override async Task<CategoriesProto> GetAllCategories(EmptyRequest request, ServerCallContext context)
+        {
+            var items = await _productRepository.GetAllCategories();
+
+            return _mapper.Map<CategoriesProto>(items);
         }
     }
 }

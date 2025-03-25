@@ -31,7 +31,7 @@ namespace GrpcInventory.Services
                 {
                     Id = id,
                     Quantity = quantity,
-                    MovementType = movementType.GetType().Name
+                    MovementType = movementType.ToString()
                 };
 
                 var reply = await _client.UpdateStockAsync(request);

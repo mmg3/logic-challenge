@@ -1,5 +1,8 @@
-﻿using GrpcProduct.Contexts;
+﻿using Azure.Core;
+using GrpcProduct.Contexts;
+using GrpcProduct.DTOs;
 using GrpcProduct.Models;
+using GrpcProduct.ProductProtoService;
 using Microsoft.EntityFrameworkCore;
 
 namespace GrpcProduct.Repositories
@@ -28,10 +31,8 @@ namespace GrpcProduct.Repositories
             oldItem.CategoryId = item.CategoryId;
             oldItem.Image = item.Image;
             oldItem.Price = item.Price;
-            oldItem.Stock = item.Stock;
-            oldItem.IsActive = item.IsActive;
+            oldItem.IsActive = true;
 
-            _context.Update(item);
             await _context.SaveChangesAsync();
             return item;
         }
@@ -53,9 +54,33 @@ namespace GrpcProduct.Repositories
             return item ?? new();
         }
 
+        public async Task<PaginatedDto> GetAll(int offset = 1, int pageSize = 10)
+        {
+            var skip = (offset - 1) * pageSize;
+            var items = await _context.Items.Where(item => item.IsActive)
+                                        .Skip(skip)
+                                        .Take(pageSize)
+                                        .ToListAsync();
+
+            var totalProducts = await _context.Items.Where(item => item.IsActive).CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+
+
+            return new PaginatedDto
+            {
+                Items = items,
+                TotalItems = totalProducts,
+                TotalPages = totalPages,
+                CurrentPage = offset
+            };
+        }
         public async Task<List<Item>> GetAll()
         {
             return await _context.Items.Where(item => item.IsActive).ToListAsync();
+        }
+        public async Task<List<Category>> GetAllCategories()
+        {
+            return await _context.Categories.ToListAsync();
         }
     }
 }

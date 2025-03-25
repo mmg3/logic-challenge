@@ -18,11 +18,7 @@ namespace ApiGateway.Services
             var channel = GrpcChannel.ForAddress(configuration["InventoryServiceUrl"], channelOptions);
             _client = new InventoryGrpc.InventoryGrpcClient(channel);
         }
-        /*
-           rpc AddMovement(MovementMessage) returns (MovementMessage);
-  rpc GetAllMovements(Empty) returns (MovementsProto);
-  rpc GetMovementByProductId(MovementMessage) returns (MovementsProto);
-        */
+       
         public async Task<MovementMessage> AddMovement(MovementMessage request)
         {
             try

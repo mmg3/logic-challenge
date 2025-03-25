@@ -6,7 +6,7 @@ public partial class Movement
 {
     public int Id { get; set; }
 
-    public string Date { get; set; } = null!;
+    public DateTime Date { get; set; }
 
     public MovementTypeEnum Type { get; set; }
 
@@ -18,6 +18,6 @@ public partial class Movement
 
     public decimal TotalPrice { get; set; }
 
-    public string Detail { get; set; } = null!;
+    public string? Detail { get; set; }
 
 }

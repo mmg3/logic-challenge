@@ -7,10 +7,6 @@ namespace ApiGateway.Services
     {
         private readonly ProductGrpc.ProductGrpcClient _client;
 
-        /*
-        rpc GetAllProducts (EmptyRequest) returns (ItemProto);
-         * */
-
         public ProductClientService(IConfiguration configuration)
         {
             GrpcChannelOptions channelOptions = new()
@@ -75,11 +71,37 @@ namespace ApiGateway.Services
             }
         }
 
+        public async Task<ItemsPaginatedProto> GetAllPaginatedProducts(ProductPaginatedRequest request)
+        {
+            try
+            {
+                ItemsPaginatedProto reply = await _client.GetAllPaginatedProductsAsync(request);
+                return reply;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<ItemsProto> GetAllProducts(EmptyRequest request)
         {
             try
             {
                 ItemsProto reply = await _client.GetAllProductsAsync(request);
+                return reply;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<CategoriesProto> GetAllCategories(EmptyRequest request)
+        {
+            try
+            {
+                CategoriesProto reply = await _client.GetAllCategoriesAsync(request);
                 return reply;
             }
             catch

@@ -1,4 +1,5 @@
-﻿using GrpcInventory.Contexts;
+﻿using Grpc.Core;
+using GrpcInventory.Contexts;
 using GrpcInventory.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,8 @@ namespace GrpcInventory.Repositories
 
         public async Task<List<Movement>> GetMovementsByProductId(int productId)
         {
-            return await _context.Movements.Where(m => m.ItemId == productId).ToListAsync();
+            var movements = await _context.Movements.Where(m => m.ItemId == productId).OrderByDescending(o => o.ItemId).ToListAsync();
+            return movements;
         }
     }
 }

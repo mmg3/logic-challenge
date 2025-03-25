@@ -52,7 +52,6 @@ namespace GrpcInventory.Services
 
         public override async Task<MovementsProto> GetAllMovements(Empty request, ServerCallContext context)
         {
-            MovementsProto movementsMessage = new();
             try
             {
                 List<Movement> movements = await _movementsRepository.GetAllMovements();
