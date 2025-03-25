@@ -1,94 +1,119 @@
 # Proyecto de Gestión de Productos y Transacciones
 
-Este proyecto permite la gestión de productos y transacciones a través de un sistema que incluye un backend en C# y un frontend en Next.js. Utiliza una base de datos MSSQL Server ejecutada en Docker.
+Este challenge, enviado por logicStudio, permite la gestión de productos y transacciones a través de un sistema que incluye un backend en C# y un frontend en Next.js. Utiliza una base de datos MSSQL Server ejecutada en Docker.
 
 ## Requisitos
 
-Antes de ejecutar el proyecto en tu entorno local, asegúrate de tener los siguientes requisitos:
+Antes de ejecutar el proyecto en su entorno local, asegúrese de tener los siguientes requisitos:
 
 - **Docker**: Para ejecutar la base de datos MSSQL Server en un contenedor.
-- **.NET 6 o superior**: Para ejecutar el backend en C#.
+- **.NET 8 o superior**: Para ejecutar el backend en C#. Como IDE se puede utilizar Visual Studio en su version más actual que soporte .NET 8.
 - **Node.js**: Para ejecutar el frontend en Next.js.
 - **npm o yarn**: Para gestionar las dependencias del frontend.
 
-## Ejecución del Backend
+## Antes de comenzar:
 
-Sigue estos pasos para ejecutar el backend:
-
-1. **Clona el repositorio**:
-    ```bash
-    git clone https://github.com/tu_usuario/tu_repositorio.git
-    cd tu_repositorio/backend
-    ```
-
-2. **Restaura las dependencias**:
-    ```bash
-    dotnet restore
-    ```
-
-3. **Configura el archivo `appsettings.json`**:  
-   Asegúrate de que el archivo `appsettings.json` tenga los valores correctos para la conexión a la base de datos. Si estás usando Docker, la cadena de conexión podría ser algo como:
-    ```json
-    "ConnectionStrings": {
-      "DefaultConnection": "Server=localhost,1433;Database=nombre_base_datos;User Id=sa;Password=#password1;"
-    }
-    ```
-
-4. **Ejecuta el backend**:
-    ```bash
-    dotnet run
-    ```
-
-   El backend se ejecutará en `http://localhost:5000` o el puerto configurado en tu archivo `appsettings.json`.
-
-## Ejecución del Frontend
-
-Sigue estos pasos para ejecutar el frontend:
-
-1. **Clona el repositorio**:
-    ```bash
-    git clone https://github.com/tu_usuario/tu_repositorio.git
-    cd tu_repositorio/frontend
-    ```
-
-2. **Instala las dependencias**:
-    ```bash
-    npm install
-    ```
-
-3. **Configura las variables de entorno**:  
-   Crea un archivo `.env.local` en la raíz del proyecto y agrega las variables de entorno necesarias. Asegúrate de que la URL del backend sea correcta:
-    ```env
-    NEXT_PUBLIC_API_URL=http://localhost:5000/api
-    ```
-
-4. **Ejecuta el frontend**:
-    ```bash
-    npm run dev
-    ```
-
-   El frontend se ejecutará en `http://localhost:3000`.
+Es necesario clonar este repositorio, aquí se encuentran todos los proyectos necesarios:
+```bash
+git clone https://github.com/mmg3/logic-challenge.git
+```
 
 ## Ejecución de la Base de Datos (Docker)
 
-Para ejecutar MSSQL Server en Docker, sigue estos pasos:
+Para ejecutar MSSQL Server en Docker, siga estos pasos:
 
-1. **Clona el repositorio**:
-    ```bash
-    git clone https://github.com/tu_usuario/tu_repositorio.git
-    cd tu_repositorio
-    ```
-
-2. **Levanta el contenedor de MSSQL Server**:
-    Asegúrate de tener Docker instalado y ejecuta el siguiente comando:
+1. **Levantar el contenedor de MSSQL Server**:
+   Ingresar a la carpeta donde fue clonado el git.
+   Asegúrese de tener Docker instalado y ejecute el siguiente comando:
     ```bash
     docker-compose up -d
     ```
 
    Esto descargará la imagen de MSSQL Server y levantará el contenedor en segundo plano. La base de datos estará disponible en el puerto `1433`.
 
-3. **Accede a la base de datos**:  
+3. **Acceda a la base de datos**:  
    Si necesitas conectarte a la base de datos de manera manual, puedes usar herramientas como [Azure Data Studio](https://aka.ms/azuredatastudio) o [SQL Server Management Studio (SSMS)](https://aka.ms/ssms).
+
+   Las credenciales por defecto para conectarse a la base de datos son:
+   ```bash
+   usuario: "sa"
+   password: "#password1"
+    ```
+
+   La password puede ser editada en el archivo docker-compose.yml.
+
+4. **Ejecución de scripts**:
+
+   Dentro de la carpeta raiz encontrará el archivo: "scriptBDD.sql".
+   Abra una ventana de consultas y ejecutar el contenido del archivo "scriptBDD.sql".
+   Al final, tendrá dos bases de datos, Inventory: donde se registrarán los movimientos; y, Products: donde se guardarán los productos y categorias. En esta última existen datos de pruebas.
+
+   
+## Ejecución del Backend
+
+Siga estos pasos para ejecutar el backend:
+
+1. **Abrir proyectos**:
+
+    Abrir los proyectos contenidos en las carpetas GrpcProduct, GrpcInventory, ApiGateway; los tres son necesarios para la correcta ejecución del backend.
+
+2. **Configura el archivo `appsettings.json`**:  
+   Asegúrese de que el archivo `appsettings.json` tenga los valores correctos para la conexión a la base de datos. Si estás usando Docker y no ha modificado la contraseña de la bdd, la cadena de conexión podría ser algo como:
+   GrpcProduct
+    ```json
+    "ConnectionStrings": {
+      "DefaultConnection": "server=localhost;Database=Product;Persist Security Info=False;User ID=sa;Password=#password1;TrustServerCertificate=true;MultipleActiveResultSets=true"
+    }
+    ```
+    
+   GrpcInventory
+    ```json
+    "ConnectionStrings": {
+      "DefaultConnection": "server=localhost;Database=Inventory;Persist Security Info=False;User ID=sa;Password=#password1;TrustServerCertificate=true;MultipleActiveResultSets=true"
+    }
+    ```
+
+   Asegúrese que el proyecto GrpcProduct se está ejecutando en la direccion "https://localhost:7099/", caso contrario ajustar en el archivo `appsettings.json` del proyecto `GrpcInventory`, de tal manera que tenga la url correcta en:
+   
+    ```json
+    "ProductServiceUrl": "https://localhost:7099/"
+    ```
+
+   El apigateway se comunica mediante gRPC a los otros dos proyecto, por tanto debe asegurarse que las url's sean las correctas en el archivo `appsettings.json` de este proyecto, de tal manera que debe ser similar a:
+
+    ```json
+    "ProductServiceUrl": "https://localhost:7099",
+    "InventoryServiceUrl": "https://localhost:7056"
+    ```
+    
+   El apigateway se ejecutará en `http://localhost:7231`.
+
+## Ejecución del Frontend
+
+Siga estos pasos para ejecutar el frontend, teniendo en cuenta que en la carpeta raiz existe otra llamada `inventory-control` la cual contiene el poryecto NextJs del frontend:
+
+1. **Instala las dependencias**:
+    ```bash
+    npm install
+    ó
+    yarn add
+    ```
+
+2. **Configurar las url del backend**:  
+   Crear un archivo .env.local en la raíz del proyecto y agregar las variables de entorno necesarias. Asegúrate de que la URL del backend sea correcta:
+    ```env
+    NEXT_PUBLIC_API_URL=https://localhost:7231/api/Gateway'
+    ```
+
+4. **Ejecuta el frontend**:
+    ```bash
+    npm run dev
+    ó
+    yarn run dev
+    ```
+
+   El frontend se ejecutará en `http://localhost:3000`.
+
 
 ## Evidencias
 
@@ -132,7 +157,7 @@ Para ejecutar MSSQL Server en Docker, sigue estos pasos:
 
 ## Contribuciones
 
-Si deseas contribuir a este proyecto, por favor sigue estos pasos:
+Si deseas contribuir a este proyecto, por favor siga estos pasos:
 
 1. Realiza un fork de este repositorio.
 2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
