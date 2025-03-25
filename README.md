@@ -120,53 +120,37 @@ Siga estos pasos para ejecutar el frontend, teniendo en cuenta que en la carpeta
 ### 1. **Listado Dinámico de Productos y Transacciones con Paginación**
    - Se muestra un listado de productos y transacciones con paginación.
    - Captura de pantalla:
-
-     ![Listado de productos y transacciones](./capturas/listado.png)
+      ![imagen](https://github.com/user-attachments/assets/90392201-c60b-4293-8fac-4fe28d830b82)
 
 ### 2. **Pantalla para la Creación de Productos**
    - Permite al usuario crear nuevos productos en el sistema.
    - Captura de pantalla:
 
-     ![Pantalla de creación de productos](./capturas/crear_producto.png)
+     ![imagen](https://github.com/user-attachments/assets/a5b54f3a-85e6-46e9-91ac-555e6618d8bc)
+
 
 ### 3. **Pantalla para la Edición de Productos**
    - Permite editar los detalles de un producto ya existente.
    - Captura de pantalla:
 
-     ![Pantalla de edición de productos](./capturas/editar_producto.png)
+     ![imagen](https://github.com/user-attachments/assets/5274b6bd-abff-4eb7-99ce-03830615ef52)
 
 ### 4. **Pantalla para la Creación de Transacciones**
    - Permite al usuario crear nuevas transacciones.
    - Captura de pantalla:
 
-     ![Pantalla de creación de transacciones](./capturas/crear_transaccion.png)
+     ![imagen](https://github.com/user-attachments/assets/7e680329-ee6e-4684-a37b-2c4aa075a617)
 
-### 5. **Pantalla para la Edición de Transacciones**
-   - Permite editar las transacciones existentes.
-   - Captura de pantalla:
 
-     ![Pantalla de edición de transacciones](./capturas/editar_transaccion.png)
-
-### 6. **Pantalla de Filtros Dinámicos**
+### 5. **Pantalla de Filtros Dinámicos**
    - Permite aplicar filtros dinámicos para productos y transacciones.
    - Captura de pantalla:
 
-     ![Pantalla de filtros](./capturas/filtros.png)
+     ![imagen](https://github.com/user-attachments/assets/55dcad74-6d04-478a-94da-64d9916f0d15)
 
----
-
-## Contribuciones
-
-Si deseas contribuir a este proyecto, por favor siga estos pasos:
-
-1. Realiza un fork de este repositorio.
-2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
-3. Realiza tus cambios y haz commit (`git commit -am 'Añadir nueva funcionalidad'`).
-4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
-5. Abre un pull request.
 
 ---
 
 ## Licencia
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+Este proyecto está bajo la licencia MIT.
