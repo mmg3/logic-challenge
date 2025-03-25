@@ -20,7 +20,7 @@ git clone https://github.com/mmg3/logic-challenge.git
 
 ## Ejecución de la Base de Datos (Docker)
 
-Para ejecutar MSSQL Server en Docker, siga estos pasos:
+Para ejecutar `MSSQL Server` en Docker, siga estos pasos:
 
 1. **Levantar el contenedor de MSSQL Server**:
    Ingresar a la carpeta donde fue clonado el git.
@@ -40,13 +40,13 @@ Para ejecutar MSSQL Server en Docker, siga estos pasos:
    password: "#password1"
     ```
 
-   La password puede ser editada en el archivo docker-compose.yml.
+   La password puede ser editada en el archivo `docker-compose.yml`.
 
 4. **Ejecución de scripts**:
 
-   Dentro de la carpeta raiz encontrará el archivo: "scriptBDD.sql".
-   Abra una ventana de consultas y ejecutar el contenido del archivo "scriptBDD.sql".
-   Al final, tendrá dos bases de datos, Inventory: donde se registrarán los movimientos; y, Products: donde se guardarán los productos y categorias. En esta última existen datos de pruebas.
+   Dentro de la carpeta raiz encontrará el archivo: `scriptBDD.sql`.
+   Abra una ventana de consultas y ejecutar el contenido del archivo `scriptBDD.sql`.
+   Al final, tendrá dos bases de datos, `Inventory`: donde se registrarán los movimientos; y, `Products`: donde se guardarán los productos y categorias. En esta última existen datos de pruebas.
 
    
 ## Ejecución del Backend
@@ -55,7 +55,7 @@ Siga estos pasos para ejecutar el backend:
 
 1. **Abrir proyectos**:
 
-    Abrir los proyectos contenidos en las carpetas GrpcProduct, GrpcInventory, ApiGateway; los tres son necesarios para la correcta ejecución del backend.
+    Abrir los proyectos contenidos en las carpetas `GrpcProduct`, `GrpcInventory`, `ApiGateway`; los tres son necesarios para la correcta ejecución del backend.
 
 2. **Configura el archivo `appsettings.json`**:  
    Asegúrese de que el archivo `appsettings.json` tenga los valores correctos para la conexión a la base de datos. Si estás usando Docker y no ha modificado la contraseña de la bdd, la cadena de conexión podría ser algo como:
@@ -73,7 +73,7 @@ Siga estos pasos para ejecutar el backend:
     }
     ```
 
-   Asegúrese que el proyecto GrpcProduct se está ejecutando en la direccion "https://localhost:7099/", caso contrario ajustar en el archivo `appsettings.json` del proyecto `GrpcInventory`, de tal manera que tenga la url correcta en:
+   Asegúrese que el proyecto GrpcProduct se está ejecutando en la direccion `https://localhost:7099/`, caso contrario ajustar en el archivo `appsettings.json` del proyecto `GrpcInventory`, de tal manera que tenga la url correcta en:
    
     ```json
     "ProductServiceUrl": "https://localhost:7099/"
@@ -100,7 +100,7 @@ Siga estos pasos para ejecutar el frontend, teniendo en cuenta que en la carpeta
     ```
 
 2. **Configurar las url del backend**:  
-   Crear un archivo .env.local en la raíz del proyecto y agregar las variables de entorno necesarias. Asegúrate de que la URL del backend sea correcta:
+   Crear un archivo `.env.local` en la raíz del proyecto frontend y agregar la variable de entorno `NEXT_PUBLIC_API_URL`. Asegúrate de que la URL del backend sea correcta:
     ```env
     NEXT_PUBLIC_API_URL=https://localhost:7231/api/Gateway'
     ```
