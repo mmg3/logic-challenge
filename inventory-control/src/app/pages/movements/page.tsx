@@ -33,7 +33,7 @@ export default function Movements() {
     const fetchData = async () => {
       try {
         const dataProducto: Producto = await getAllProducts();
-        
+
         setProductosList(dataProducto.items);
       } catch (error) {
         console.error('Error fetching:', error);
@@ -76,13 +76,10 @@ export default function Movements() {
     }
     setMostrarModal(false);
   };
-  const handleProductoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    console.log("entra");
+  const handleProductoChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const producto = productolist && productolist.find((prod) => prod.id === Number(e.target.value));
-console.log(producto)
-    setProductoSeleccionado(producto);
 
-    //const dataMovimiento: Movimiento[] = await getMovementByProductId(nuevoMovimiento.itemId);
+    const dataMovimiento: Movimiento[] = await getMovementByProductId(producto?.id);
     setMovimientos(dataMovimiento.movements);
   };
 
@@ -94,7 +91,7 @@ console.log(producto)
             <label className="form-label text-white">Seleccionar Producto</label>
             <select
               className="form-select"
-              onChange={(e) => handleProductoChange}
+              onChange={handleProductoChange}
               defaultValue={productoSeleccionado ? productoSeleccionado.id : 0}
             >
               <option value="0" disabled>Seleccione un producto</option>
@@ -130,7 +127,7 @@ console.log(producto)
           </tr>
         </thead>
         <tbody>
-          {movimientos.filter((m) => m.itemId === productoSeleccionado?.id).map((mov) => (
+          {movimientos && movimientos.map((mov) => (
             <tr key={mov.id}>
               <td>{mov.id}</td>
               <td>{mov.date}</td>

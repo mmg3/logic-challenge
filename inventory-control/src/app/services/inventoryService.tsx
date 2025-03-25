@@ -6,6 +6,11 @@ export const getMovementByProductId = async (id: number) => {
     return response.data;
 };
 
+export const getAllMovements = async () => {
+    const response = await apiClient.get(`/GetAllMovements`);
+    return response.data;
+};
+
 export const createMovement = async (movement: Movimiento) => {
     try {
         const response = await apiClient.post('/AddMovement', movement);
