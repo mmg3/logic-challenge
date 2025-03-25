@@ -33,7 +33,6 @@ packages/
 
 # Docker
 **/[Dd]ockerfile
-**/docker-compose.*
 
 # OS-specific
 Thumbs.db
